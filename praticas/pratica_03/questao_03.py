@@ -8,16 +8,18 @@ def converter_usd_para_brl(valor_usd: float) -> float:
 
 
 def calcular_imposto_brl(valor_compra_brl: float) -> float:
-    if valor_compra_brl <= converter_usd_para_brl(50.00):
-        imposto = valor_compra_brl * 0.20
+    valor_limite = converter_usd_para_brl(50.00)
+    if valor_compra_brl <= valor_limite:
+        aliquota = 0.20
     else:
-        imposto = valor_compra_brl * 0.60
+        aliquota = 0.60
+    imposto = valor_compra_brl * aliquota
     return imposto
 
 
 def calcular_valor_final_brl(valor_compra_brl: float) -> float:
     imposto = calcular_imposto_brl(valor_compra_brl)
-    return valor_compra_brl + imposto_brl
+    return valor_compra_brl + imposto
 
 
 ## Main
@@ -27,8 +29,8 @@ quantidade = int(input("Digite a quantidade comprada: "))
 
 valor_usd = calcular_valor_usd(valor_unitario, quantidade)
 valor_brl = converter_usd_para_brl(valor_usd)
-imposto_brl = calcular_imposto_brl(valor_brl, valor_usd)
-valor_final_brl = calcular_valor_final_brl(valor_brl, imposto_brl)
+imposto_brl = calcular_imposto_brl(valor_brl)
+valor_final_brl = calcular_valor_final_brl(valor_brl)
 
 print(f"Valor da compra em USD: US$ {valor_usd:.2f}")
 print(f"Valor da compra em BRL (sem taxa): R$ {valor_brl:.2f}")
